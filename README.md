@@ -1,5 +1,3 @@
-News 'trottolose' quotidiane 📖📰
-
 News 'trottolose' quotidiane è un'applicazione web minimale, automatizzata ed essenziale per la lettura delle notizie del giorno, progettata con un'estetica ispirata ai lettori e-book con schermo e-paper / paper reader.
 
 L'applicazione raccoglie ogni giorno 6 notizie esclusive per 6 differenti macro-categorie, preservando l'archivio dei giorni precedenti e garantendo un'esperienza di lettura pulita, leggibile e priva di distrazioni.
@@ -44,33 +42,11 @@ Hyperlink diretto e visibile all'articolo originale della fonte giornalistica.
 
 Il progetto si aggiorna automaticamente ogni giorno alle 07:00 AM (ora italiana) grazie a GitHub Actions ed è servito via GitHub Pages.
 
-┌────────────────────────┐      ┌─────────────────────────┐      ┌────────────────────────┐
-│  GitHub Actions (CRON) │ ───> │     fetch_news.py       │ ───> │      archive.json      │
-│  (Ogni giorno ore 7)   │      │ (Fetch RSS e Deduplica) │      │ (Preserva lo storico)  │
-└────────────────────────┘      └─────────────────────────┘      └────────────────────────┘
-                                                                             │
-                                                                             ▼
-                                                                 ┌────────────────────────┐
-                                                                 │      notizie.html      │
-                                                                 │  (Interfaccia E-Paper) │
-                                                                 └────────────────────────┘
-
-
 fetch_news.py: Script Python che estrae le notizie via feed RSS autorevoli (ANSA, Il Sole 24 Ore, Corriere, Wired, LatinaToday, Latina Oggi, ecc.), garantendo la regola di massimo 1 articolo per fonte/dominio all'interno dello stesso topic.
 
 archive.json: Database JSON leggero che accumula lo storico dei giorni.
 
 .github/workflows/daily_news.yml: Automazione GitHub che esegue lo script, salva i dati e aggiorna la pagina web.
-
-🚀 Struttura del Repository
-
-notizie/
-├── .github/workflows/
-│   └── daily_news.yml      # Workflow di automazione giornaliera
-├── fetch_news.py           # Script Python di aggregazione e generazione HTML
-├── archive.json            # Archivio storico dati in formato JSON
-├── notizie.html            # Interfaccia grafica HTML/CSS/JS E-Ink
-└── README.md               # Documentazione di progetto
 
 
 📄 Licenza
