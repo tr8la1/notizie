@@ -4,39 +4,59 @@ import os
 import re
 from datetime import datetime
 import urllib.request
+from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
-# Architettura delle fonti RSS esclusive per categoria (no news locali nei primi 5)
+# Fonti RSS diversificate per garantire 6 fonti/domini differenti per topic
 SOURCES = {
     "Nazionale": [
         "https://www.ansa.it/sito/ansait_rss.xml",
         "https://xml2.corriere.it/rss/homepage.xml",
-        "https://www.tgcom24.mediaset.it/rss/homepage.xml"
+        "https://www.repubblica.it/rss/homepage/rss2.0.xml",
+        "https://www.tgcom24.mediaset.it/rss/homepage.xml",
+        "https://www.ilfattoquotidiano.it/feed/",
+        "https://www.agtw.it/rss/news.xml",
+        "https://www.adnkronos.com/rss/ultimora.xml"
     ],
     "Internazionale": [
         "https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml",
         "https://feeds.bbci.co.uk/news/world/rss.xml",
-        "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"
+        "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+        "https://www.euronews.com/rss?format=xml",
+        "https://www.repubblica.it/rss/esteri/rss2.0.xml",
+        "https://www.corriere.it/rss/esteri.xml"
     ],
     "Tecnologia": [
         "https://www.wired.it/feed/rss",
         "https://www.tomshw.it/feed",
-        "https://macitynet.it/feed/"
+        "https://macitynet.it/feed/",
+        "https://www.ansa.it/sito/notizie/tecnologia/tecnologia_rss.xml",
+        "https://www.punto-informatico.it/feed/",
+        "https://www.hdblog.it/feed/"
     ],
     "Soldi": [
         "https://www.ilsole24ore.com/rss/economia.xml",
-        "https://www.ilsole24ore.com/rss/finanza.xml",
-        "https://www.milanofinanza.it/rss/rss_finanza.xml"
+        "https://www.milanofinanza.it/rss/rss_finanza.xml",
+        "https://www.ansa.it/sito/notizie/economia/economia_rss.xml",
+        "https://www.corriere.it/rss/economia.xml",
+        "https://www.repubblica.it/rss/economia/rss2.0.xml",
+        "https://www.wallstreetitalia.com/feed/"
     ],
     "Diplomazia": [
         "https://www.ispionline.it/it/rss",
         "https://it.insideover.com/feed",
-        "https://www.affarainternazionali.it/feed/"
+        "https://www.affarainternazionali.it/feed/",
+        "https://www.limesonline.com/feed",
+        "https://www.geopolitica.info/feed/",
+        "https://www.ansa.it/sito/notizie/politica/politica_rss.xml"
     ],
-    "Local": [  # Esclusivamente Provincia e Città di Latina (LT)
+    "Local": [  # Esclusivamente fonti locali per Provincia e Città di Latina (LT)
         "https://www.latinatoday.it/rss",
         "https://www.latinaoggi.eu/rss",
-        "https://www.ilmessaggero.it/rss/latina.xml"
+        "https://www.ilmessaggero.it/rss/latina.xml",
+        "https://www.h24notizie.com/feed/",
+        "https://www.latinacorriere.it/feed/",
+        "https://www.lunanotizie.it/site/feed/"
     ]
 }
 
@@ -44,25 +64,32 @@ ARCHIVE_FILE = "archive.json"
 HTML_OUTPUT = "notizie.html"
 
 def clean_html_tags(raw_text):
-    """Rimuove eventuali tag HTML dalle descrizioni o titoli RSS."""
+    """Rimuove tag HTML residui da descrizioni o titoli RSS."""
     if not raw_text:
         return ""
     clean = re.sub(r'<[^>]+>', '', raw_text)
     return clean.strip().replace('\n', ' ')
 
-def fetch_feed_items(url, max_items=6):
-    """Scarica ed estrae titolo, link e sintesi da un feed RSS."""
+def get_domain_key(url):
+    """Estrae il dominio di base per evitare di usare la stessa fonte più di una volta per topic."""
+    parsed = urlparse(url)
+    netloc = parsed.netloc.lower()
+    if netloc.startswith("www."):
+        netloc = netloc[4:]
+    return netloc
+
+def fetch_feed_items(url, max_items=2):
+    """Scarica ed estrae notizie da un feed RSS."""
     items = []
     try:
         req = urllib.request.Request(
             url, 
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
         )
-        with urllib.request.urlopen(req, timeout=10) as response:
+        with urllib.request.urlopen(req, timeout=8) as response:
             xml_data = response.read()
             root = ET.fromstring(xml_data)
             
-            # Supporto standard RSS 2.0 e Atom
             channel = root.find('channel')
             elements = channel.findall('item') if channel is not None else root.findall('{http://www.w3.org/2005/Atom}entry')
             
@@ -73,62 +100,68 @@ def fetch_feed_items(url, max_items=6):
                 
                 title = clean_html_tags(title_elem.text) if title_elem is not None and title_elem.text else ""
                 
-                # Estrazione link
                 if link_elem is not None:
                     link = link_elem.text if link_elem.text else link_elem.attrib.get('href', '#')
                 else:
                     link = '#'
                 
                 summary = clean_html_tags(desc_elem.text) if desc_elem is not None and desc_elem.text else ""
-                if len(summary) > 140:
-                    summary = summary[:137] + "..."
+                if len(summary) > 130:
+                    summary = summary[:127] + "..."
                 
                 if title and link != '#':
                     items.append({
                         "title": title,
                         "summary": summary,
-                        "link": link
+                        "link": link,
+                        "domain": get_domain_key(link)
                     })
                 if len(items) >= max_items:
                     break
     except Exception as e:
-        print(f"[-] Errore nel recupero feed da {url}: {e}")
+        print(f"[-] Errore su feed {url}: {e}")
     return items
 
 def get_daily_news():
-    """Raccoglie 6 notizie per ciascuno dei 6 topic."""
+    """Raccoglie 6 notizie per ciascuno dei 6 topic (max 1 per fonte/dominio)."""
     today_news = {}
     for topic, urls in SOURCES.items():
         topic_articles = []
+        seen_domains = set()
         seen_titles = set()
         
         for url in urls:
-            fetched = fetch_feed_items(url, max_items=6)
+            fetched = fetch_feed_items(url, max_items=2)
             for item in fetched:
-                # Evita notizie duplicate confrontando i titoli
+                domain = item['domain']
                 norm_title = item['title'].lower()
-                if norm_title not in seen_titles:
+                
+                # REGOLA: Max 1 notizia per dominio/fonte per ciascun topic
+                if domain not in seen_domains and norm_title not in seen_titles:
+                    seen_domains.add(domain)
                     seen_titles.add(norm_title)
                     topic_articles.append(item)
+                    
                 if len(topic_articles) == 6:
                     break
             if len(topic_articles) == 6:
                 break
                 
-        # Se la fonte RSS non fornisce 6 notizie, riempie i segnaposto in modo fluido
+        # Se i feed non bastano, riempie fino a 6
         while len(topic_articles) < 6:
             idx = len(topic_articles) + 1
             topic_articles.append({
                 "title": f"Notizia {idx} - {topic}",
-                "summary": "Aggiornamento in attesa di sincro dal feed principale.",
-                "link": "https://www.ansa.it"
+                "summary": "Aggiornamento in attesa di sincronizzazione.",
+                "link": "https://www.ansa.it",
+                "domain": "ansa.it"
             })
             
-        today_news[topic] = topic_articles
+        today_news[topic] = topic_articles[:6]
     return today_news
 
 def build_html_canvas(archive_data):
-    """Genera il codice HTML responsive con stile e-ink e selettore data/topic."""
+    """Genera l'HTML e-ink ottimizzato per smartphone con hyperlink visibili."""
     
     archive_json_str = json.dumps(archive_data, ensure_ascii=False)
     
@@ -136,14 +169,14 @@ def build_html_canvas(archive_data):
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>News 'trottolose' quotidiane</title>
     <style>
         :root {{
             --bg-paper: #f4f1ea;
             --text-ink: #111111;
             --border-ink: #222222;
-            --muted-ink: #555555;
+            --muted-ink: #444444;
             --active-bg: #111111;
             --active-text: #f4f1ea;
         }}
@@ -152,25 +185,26 @@ def build_html_canvas(archive_data):
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }}
 
         body {{
             background-color: var(--bg-paper);
             color: var(--text-ink);
-            font-family: "Georgia", "Merriweather", "Times New Roman", serif;
-            padding: 2rem 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Georgia", "Segoe UI", serif;
+            padding: 0.8rem 0.5rem;
             display: flex;
             justify-content: center;
         }}
 
+        /* Contenitore ottimizzato per mobile/e-reader */
         .ebook-container {{
             width: 100%;
-            max-width: 680px;
+            max-width: 600px;
             background-color: var(--bg-paper);
             border: 2px solid var(--border-ink);
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
+            padding: 1rem 0.8rem;
+            border-radius: 3px;
         }}
 
         /* Prima Riga: Titolo + Dropdown Data */
@@ -179,50 +213,57 @@ def build_html_canvas(archive_data):
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--border-ink);
-            padding-bottom: 1rem;
-            margin-bottom: 1.2rem;
-            gap: 1rem;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0.8rem;
+            gap: 0.5rem;
         }}
 
         .title {{
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             font-weight: bold;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
         }}
 
         .date-select {{
             background: var(--bg-paper);
             color: var(--text-ink);
-            border: 1px solid var(--border-ink);
+            border: 1.5px solid var(--border-ink);
             font-family: inherit;
-            font-size: 0.95rem;
-            padding: 0.3rem 0.5rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 0.3rem 0.4rem;
             border-radius: 2px;
             cursor: pointer;
         }}
 
-        /* Seconda Riga: Topic Selezionabili */
+        /* Seconda Riga: Topic Selezionabili (Responsive Grid) */
         .topics-row {{
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 0.4rem;
-            border-bottom: 1px solid var(--border-ink);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
+            border-bottom: 1.5px solid var(--border-ink);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }}
 
         .topic-btn {{
             background: transparent;
             color: var(--text-ink);
             border: 1px solid var(--border-ink);
-            padding: 0.4rem 0.7rem;
+            padding: 0.5rem 0.2rem;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-radius: 2px;
-            transition: all 0.1s ease;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }}
 
         .topic-btn.active {{
@@ -230,77 +271,81 @@ def build_html_canvas(archive_data):
             color: var(--active-text);
         }}
 
-        /* Sezione Notizie */
+        /* Elenco Notizie */
         .news-list {{
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }}
 
         .news-item {{
             border-bottom: 1px dashed var(--border-ink);
-            padding-bottom: 1rem;
+            padding-bottom: 0.8rem;
         }}
 
         .news-item:last-child {{
             border-bottom: none;
         }}
 
-        .news-header {{
-            font-size: 1.05rem;
-            font-weight: bold;
+        .news-title {{
+            font-size: 0.98rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }}
+
+        .news-summary {{
+            font-size: 0.88rem;
+            color: var(--muted-ink);
             line-height: 1.35;
             margin-bottom: 0.4rem;
         }}
 
-        .news-summary {{
-            font-size: 0.9rem;
-            color: var(--muted-ink);
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-        }}
-
+        /* Hyperlink diretto visibile e sottolineato */
         .news-link {{
             display: inline-block;
             color: var(--text-ink);
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.82rem;
+            font-weight: 600;
             text-decoration: underline;
+            word-break: break-all;
+            line-height: 1.2;
+            margin-top: 0.1rem;
         }}
 
-        .news-link:hover {{
+        .news-link:active {{
             background-color: var(--text-ink);
             color: var(--bg-paper);
         }}
 
         footer {{
-            margin-top: 2rem;
-            padding-top: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border-ink);
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--muted-ink);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }}
     </style>
 </head>
 <body>
 
 <div class="ebook-container">
-    <!-- Prima Riga: Titolo & Menù a tendina date -->
+    <!-- Prima Riga: Titolo e Menu Date -->
     <div class="header-row">
         <h1 class="title">News 'trottolose' quotidiane</h1>
         <select id="dateSelect" class="date-select" onchange="onDateChange()"></select>
     </div>
 
-    <!-- Seconda Riga: 6 Topic Selezionabili -->
+    <!-- Seconda Riga: Topic Selezionabili -->
     <div class="topics-row" id="topicsContainer"></div>
 
     <!-- Elenco delle 6 Notizie -->
     <div class="news-list" id="newsContainer"></div>
 
-    <footer>E-Ink Reader • Archivio Quotidiano Automobilizzato</footer>
+    <footer>Paper Reader • 6 Notizie per Topic</footer>
 </div>
 
 <script>
@@ -316,7 +361,6 @@ def build_html_canvas(archive_data):
         const dates = Object.keys(archive).reverse();
         if (dates.length === 0) return;
 
-        // Popola il menu a tendina delle date
         dateSelect.innerHTML = "";
         dates.forEach(date => {{
             const opt = document.createElement('option');
@@ -325,7 +369,7 @@ def build_html_canvas(archive_data):
             dateSelect.appendChild(opt);
         }});
 
-        currentDate = dates[0]; // La data più recente
+        currentDate = dates[0];
         renderTopics();
         renderNews();
     }}
@@ -354,10 +398,14 @@ def build_html_canvas(archive_data):
         articles.forEach((item, index) => {{
             const card = document.createElement('article');
             card.className = "news-item";
+            
+            // Hyperlink diretto visibile
+            const displayUrl = item.link;
+
             card.innerHTML = `
-                <div class="news-header">${{index + 1}}. ${{item.title}}</div>
+                <div class="news-title">${{index + 1}}. ${{item.title}}</div>
                 <div class="news-summary">${{item.summary}}</div>
-                <a href="${{item.link}}" class="news-link" target="_blank" rel="noopener">Leggi articolo originale →</a>
+                <a href="${{item.link}}" class="news-link" target="_blank" rel="noopener">${{displayUrl}}</a>
             `;
             newsContainer.appendChild(card);
         }});
@@ -379,31 +427,27 @@ def build_html_canvas(archive_data):
 
 def main():
     today_str = datetime.now().strftime("%d/%m/%Y")
-    print(f"[*] Avvio aggiornamento notizie per il {today_str}...")
+    print(f"[*] Recupero notizie per il {today_str}...")
 
-    # Carica l'archivio esistente per non perdere i giorni precedenti
     archive_data = {}
     if os.path.exists(ARCHIVE_FILE):
         try:
             with open(ARCHIVE_FILE, 'r', encoding='utf-8') as f:
                 archive_data = json.load(f)
         except Exception as e:
-            print(f"[!] Errore nella lettura di {ARCHIVE_FILE}: {e}")
+            print(f"[!] Errore lettura {ARCHIVE_FILE}: {e}")
 
-    # Recupera le nuove notizie
     new_daily_news = get_daily_news()
     archive_data[today_str] = new_daily_news
 
-    # Salva il file JSON aggiornato
     with open(ARCHIVE_FILE, 'w', encoding='utf-8') as f:
         json.dump(archive_data, f, ensure_ascii=False, indent=2)
-    print(f"[+] {ARCHIVE_FILE} aggiornato correttamente.")
 
-    # Rigenera il file HTML
     html_code = build_html_canvas(archive_data)
     with open(HTML_OUTPUT, 'w', encoding='utf-8') as f:
         f.write(html_code)
-    print(f"[+] {HTML_OUTPUT} generato con successo!")
+        
+    print(f"[+] Aggiornamento completato con successo!")
 
 if __name__ == "__main__":
     main()
