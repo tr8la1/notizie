@@ -2,14 +2,14 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>News 'trottolose' quotidiane</title>
     <style>
         :root {
             --bg-paper: #f4f1ea;
             --text-ink: #111111;
             --border-ink: #222222;
-            --muted-ink: #555555;
+            --muted-ink: #444444;
             --active-bg: #111111;
             --active-text: #f4f1ea;
         }
@@ -18,25 +18,26 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-paper);
             color: var(--text-ink);
-            font-family: "Georgia", "Merriweather", "Times New Roman", serif;
-            padding: 2rem 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, "Georgia", "Segoe UI", serif;
+            padding: 0.8rem 0.5rem;
             display: flex;
             justify-content: center;
         }
 
+        /* Contenitore ottimizzato per mobile/e-reader */
         .ebook-container {
             width: 100%;
-            max-width: 680px;
+            max-width: 600px;
             background-color: var(--bg-paper);
             border: 2px solid var(--border-ink);
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-radius: 4px;
+            padding: 1rem 0.8rem;
+            border-radius: 3px;
         }
 
         /* Prima Riga: Titolo + Dropdown Data */
@@ -45,50 +46,57 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--border-ink);
-            padding-bottom: 1rem;
-            margin-bottom: 1.2rem;
-            gap: 1rem;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0.8rem;
+            gap: 0.5rem;
         }
 
         .title {
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             font-weight: bold;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
         }
 
         .date-select {
             background: var(--bg-paper);
             color: var(--text-ink);
-            border: 1px solid var(--border-ink);
+            border: 1.5px solid var(--border-ink);
             font-family: inherit;
-            font-size: 0.95rem;
-            padding: 0.3rem 0.5rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 0.3rem 0.4rem;
             border-radius: 2px;
             cursor: pointer;
         }
 
-        /* Seconda Riga: Topic Selezionabili */
+        /* Seconda Riga: Topic Selezionabili (Responsive Grid) */
         .topics-row {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 0.4rem;
-            border-bottom: 1px solid var(--border-ink);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
+            border-bottom: 1.5px solid var(--border-ink);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .topic-btn {
             background: transparent;
             color: var(--text-ink);
             border: 1px solid var(--border-ink);
-            padding: 0.4rem 0.7rem;
+            padding: 0.5rem 0.2rem;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-radius: 2px;
-            transition: all 0.1s ease;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .topic-btn.active {
@@ -96,81 +104,85 @@
             color: var(--active-text);
         }
 
-        /* Sezione Notizie */
+        /* Elenco Notizie */
         .news-list {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .news-item {
             border-bottom: 1px dashed var(--border-ink);
-            padding-bottom: 1rem;
+            padding-bottom: 0.8rem;
         }
 
         .news-item:last-child {
             border-bottom: none;
         }
 
-        .news-header {
-            font-size: 1.05rem;
-            font-weight: bold;
+        .news-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }
+
+        .news-summary {
+            font-size: 0.88rem;
+            color: var(--muted-ink);
             line-height: 1.35;
             margin-bottom: 0.4rem;
         }
 
-        .news-summary {
-            font-size: 0.9rem;
-            color: var(--muted-ink);
-            line-height: 1.4;
-            margin-bottom: 0.5rem;
-        }
-
+        /* Hyperlink diretto visibile e sottolineato */
         .news-link {
             display: inline-block;
             color: var(--text-ink);
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.82rem;
+            font-weight: 600;
             text-decoration: underline;
+            word-break: break-all;
+            line-height: 1.2;
+            margin-top: 0.1rem;
         }
 
-        .news-link:hover {
+        .news-link:active {
             background-color: var(--text-ink);
             color: var(--bg-paper);
         }
 
         footer {
-            margin-top: 2rem;
-            padding-top: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border-ink);
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--muted-ink);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
 <div class="ebook-container">
-    <!-- Prima Riga: Titolo & Menù a tendina date -->
+    <!-- Prima Riga: Titolo e Menu Date -->
     <div class="header-row">
         <h1 class="title">News 'trottolose' quotidiane</h1>
         <select id="dateSelect" class="date-select" onchange="onDateChange()"></select>
     </div>
 
-    <!-- Seconda Riga: 6 Topic Selezionabili -->
+    <!-- Seconda Riga: Topic Selezionabili -->
     <div class="topics-row" id="topicsContainer"></div>
 
     <!-- Elenco delle 6 Notizie -->
     <div class="news-list" id="newsContainer"></div>
 
-    <footer>E-Ink Reader • Archivio Quotidiano Automobilizzato</footer>
+    <footer>Paper Reader • 6 Notizie per Topic</footer>
 </div>
 
 <script>
-    const archive = {"29/09/2026": {"Nazionale": [{"title": "Iñárritu presenta “Digger”: \"Vedere Tom Cruise sul set è come un miracolo”", "summary": "La nuova pellicola proiettata a Los Angeles sarà nei cinema dal 1° ottobre", "link": "https://www.ansa.it/sito/videogallery/spettacolo/2026/09/29/inarritu-presenta-digger-vedere-tom-cruise-sul-set-e-come-un-miracolo_5a1fd41b-19eb-44ff-b9d6-8d5642d50456.html"}, {"title": "Due icone dell'arte a confronto, al Met il legame tra Krasner e il marito Pollock", "summary": "La mostra \"Past Continuous\" con 120 opere tra dipinti e lavori su carta", "link": "https://www.ansa.it/canale_viaggi/notizie/mondo/2026/09/28/due-icone-dellarte-a-confronto-al-met-il-legame-tra-krasner-e-il-marito-pollock_5d97685b-7c53-415c-84e6-2154dcd9c82f.html"}, {"title": "Non ti alleni da anni? Ecco come ricominciare", "summary": "I consigli per non abbandonare l'attività fisica. Il primo? Gradualità", "link": "https://www.ansa.it/canale_lifestyle/notizie/beauty_fitness/2026/09/28/non-ti-alleni-da-anni-ecco-come-ricominciare_4b9f6f5e-9679-4a14-8a1b-4b970aecb525.html"}, {"title": "Mengoni: 'Allo Sbagliato canto 4 sere a settimana, senza telefono'", "summary": "Club off line a Milano con Sayf, Mace, Nuzzo e Di Biase, Luca Ravenna, Benjamin Clementine", "link": "https://www.ansa.it/sito/notizie/cultura/musica/2026/09/28/mengoni-allo-sbagliato-canto-4-sere-a-settimana-senza-telefono_b5194fca-48c2-49ad-9e12-8e1e6eda6bcd.html"}, {"title": "Noleggio auto usate a lungo termine: perché sempre più italiani lo scelgono", "summary": "Flessibilità, servizi all inclusive e zero pensieri: la scelta che conquista gli automobilisti italiani.", "link": "https://www.ansa.it/native/ansacom/2026/09/24/noleggio-auto-usate-a-lungo-termine-perche-sempre-piu-italiani-lo-scelgono_90e6a96f-c0b7-494f-b341-86f6cabb8eda.html"}, {"title": "Madre e figlie avvelenate con la ricina. Gianni Di Vita portato in Questura, perquisiti i suoi due studi", "summary": "Il padre e marito delle vittime non è indagato", "link": "https://www.ansa.it/sito/notizie/cronaca/2026/09/29/morte-avvelenate-perquisizione-nello-studio-di-gianni-di-vita_016113bb-edba-43dd-a287-648c26701c52.html"}], "Internazionale": [{"title": "I partiti di governo in Spagna hanno raggiunto un accordo sul decreto casa", "summary": "Fonti governo all'ANSA: 'Intesa in risposta alle richieste dei cittadini', misure in Cdm", "link": "https://www.ansa.it/sito/notizie/mondo/europa/2026/09/29/i-partiti-di-governo-in-spagna-hanno-raggiunto-un-accordo-sul-decreto-casa_38ff8114-ccef-46c8-ab10-ad059dec903d.html"}, {"title": "Estonia, 'l'incendio a azienda di metà agosto è stato sabotaggio russo'", "summary": "Convocato l'incaricato d'affari di Mosca", "link": "https://www.ansa.it/sito/notizie/mondo/europa/2026/09/29/estonia-lincendio-a-azienda-di-meta-agosto-e-stato-sabotaggio-russo_adbea634-bf58-4839-941b-438cdb635dcf.html"}, {"title": "Media, nessun esplosivo trovato sui van del presunto attacco a base Raf", "summary": "Ieri i 5 sospetti britannici arrestati per 'terrorismo' erano stati rilasciati su cauzione", "link": "https://www.ansa.it/sito/notizie/mondo/europa/2026/09/29/media-nessun-esplosivo-trovato-sui-van-del-presunto-attacco-a-base_8f75ca14-e8b5-41cd-b0ac-544525669a27.html"}, {"title": "Famiglia attaccata dai coloni a Jalud, 'hanno incendiato la nostra casa'", "summary": "Muhammad Tubasi cacciato dalla sua casa con i familiari due mesi fa da estremisti ebrei", "link": "https://www.ansa.it/sito/notizie/mondo/mediooriente/2026/09/29/famiglia-attaccata-dai-coloni-a-jalud-hanno-incendiato-la-nostra-casa_0f57bb6e-ddd3-44b9-bf61-7e25033d9f72.html"}, {"title": "Seul, 'mina nordcoreana in zona demilitarizzata, chiara violazione dell'armistizio'", "summary": "", "link": "https://www.ansa.it/sito/notizie/mondo/asia/2026/09/29/seul-mina-nordcoreana-in-zona-demilitarizzata-chiara-violazione-dellarmistizio_99ad4a4a-c611-4aae-bc7e-79975f893765.html"}, {"title": "Teheran, 'nessuna flessibilità su nucleare, sul tavolo c'è solo Hormuz'", "summary": "Ministro Araghchi, 'chi dice il contrario sta facendo disinformazione'", "link": "https://www.ansa.it/sito/notizie/mondo/mediooriente/2026/09/29/teheran-nessuna-flessibilita-su-nucleare-sul-tavolo-ce-solo-hormuz_1a906fd2-90f2-422c-84a0-83b68930196e.html"}], "Tecnologia": [{"title": "Le migliori tende da campeggio tra modelli ultraleggeri, familiari e gonfiabili", "summary": "Dalle tende ultraleggere da trekking ai modelli familiari con vere e proprie stanze, passando per soluzioni gonfiabili e a montaggio rapido", "link": "https://www.wired.it/gallery/migliori-tende-campeggio/"}, {"title": "Dreame SF25 tritura e fa essiccare i tuoi avanzi fino a ridurli in polvere e senza odori", "summary": "Gli dai in pasto l'umido di casa e lui ne riduce il volume del 90%, così puoi conservarlo in casa finché proprio devi. Ecco com'è il trit...", "link": "https://www.wired.it/review/dreame-sf25/"}, {"title": "I migliori ventilatori a soffitto per rinfrescare casa senza ingombri", "summary": "Non occupano spazio a terra e le versioni più evolute fanno anche luce e muovono aria calda in inverno: ecco i ventilatori a soffitto più...", "link": "https://www.wired.it/gallery/migliori-ventilatori-a-soffitto/"}, {"title": "I migliori ventilatori a torre da scegliere quest'estate", "summary": "Compatti e discreti, migliorano il comfort domestico senza occupare eccessivamente spazio e senza fare rumore. Ecco i migliori modelli in...", "link": "https://www.wired.it/gallery/migliori-ventilatori-a-torre/"}, {"title": "Levoit Core 300s Pro è un purificatore piccino picciò, perfetto per stanze e piccoli appartamenti", "summary": "Lo porti sottobraccio da una stanza all'altra e si prende cura dell'aria circostante aiutandoti con allergie, pollini e molto altro. Ecco...", "link": "https://www.wired.it/review/levoit-core-300s-pro/"}, {"title": "Il dna per ritrovare casa", "summary": "I genitori, in Cina, l’hanno abbandonata appena nata, e lei viene data in adozione negli Stati Uniti. Dopo quattordici anni di ricerche, ...", "link": "https://www.wired.it/article/dna-per-ritrovare-casa/"}], "Soldi": [{"title": "Piombino, via libera Ue all’acquisizione di Liberty Magona da parte di Trasteel", "summary": "L’Antitrust europeo dà il via libera all’acquisizione della storica acciaieria Liberty Magona di Piombino da parte di Trasteel, società i...", "link": "https://www.ilsole24ore.com/art/piombino-via-libera-ue-all-acquisizione-liberty-magona-parte-trasteel-AJxZydSB"}, {"title": "Il valore della pubblicità nel retail media verso il miliardo di euro", "summary": "Cresce a doppia cifra il mercato del retail media, ovvero le diverse forme di spazi di pubblicità online e offline che le catene del comm...", "link": "https://www.ilsole24ore.com/art/il-valore-pubblicita-retail-media-il-miliardo-euro-AJ2PwwRB"}, {"title": "Aumento di capitale da 13,5 milioni per Complaion", "summary": "La start up nata nel 2024 pronta a crescere su un mercato in forte crescita, supportando le pmi europee", "link": "https://www.ilsole24ore.com/art/aumento-capitale-135-milioni-complaion-AJYNStRB"}, {"title": "Marano: «Le Big Tech restituiscano agli editori la ricchezza che prelevano»", "summary": "Le big tech incassano e basta. Gli editori pagano il conto. E, alla fine, pagano i cittadini, chiamati a sostenere un’informazione che pe...", "link": "https://www.ilsole24ore.com/art/marano-le-big-tech-restituiscano-editori-ricchezza-che-prelevano-AJHvyuRB"}, {"title": "Baraclit festeggia gli 80 anni con 200 milioni di ordini  e investimenti green", "summary": "Compie 80 anni la Baraclit di Bibbiena (Arezzo), uno dei principali gruppi italiani nei prefabbricati industriali in calcestruzzo, e li f...", "link": "https://www.ilsole24ore.com/art/baraclit-festeggia-80-anni-200-milioni-ordini-e-investimenti-green-AJevD2RB"}, {"title": "In estate i droni hanno trasportato circa 8,5 tonnellate di merci verso i rifugi", "summary": "Nel corso dell’estate in Alto Adige sono stati fatti 32 interventi e 189 voli", "link": "https://www.ilsole24ore.com/art/in-estate-droni-hanno-trasportato-circa-85-tonnellate-merci-i-rifugi-AJIsBnRB"}], "Diplomazia": [{"title": "Libano e Gaza, due guerre diverse per Israele", "summary": "Se il cessate il fuoco sarà confermato anche nei giorni successivi la sua entrata in vigore, quella che appare chiara è la sconfitta mili...", "link": "https://www.ispionline.it/it/libano-e-gaza-due-guerre-diverse-per-israele"}, {"title": "Podcast Globally: Perché il colpo di stato in Niger ci deve preoccupare", "summary": "Francesco Rocchetti, Segretario Generale ISPI, e la giornalista Silvia Boccardi parlano con Luca Raineri, ricercatore presso la Scuola Sa...", "link": "https://www.ispionline.it/it/perche-il-colpo-di-stato-in-niger-ci-deve-preoccupare"}, {"title": "Notizia 3 - Diplomazia", "summary": "Aggiornamento in attesa di sincro dal feed principale.", "link": "https://www.ansa.it"}, {"title": "Notizia 4 - Diplomazia", "summary": "Aggiornamento in attesa di sincro dal feed principale.", "link": "https://www.ansa.it"}, {"title": "Notizia 5 - Diplomazia", "summary": "Aggiornamento in attesa di sincro dal feed principale.", "link": "https://www.ansa.it"}, {"title": "Notizia 6 - Diplomazia", "summary": "Aggiornamento in attesa di sincro dal feed principale.", "link": "https://www.ansa.it"}], "Local": [{"title": "Dalla vigna alla cantina: conclusa la vendemmia del San Benedetto", "summary": "Quasi 200 quintali di uva raccolti, coinvolti circa 40 studenti coinvolti", "link": "https://www.latinatoday.it/attualita/vendemmia-scuola-san-benedetto-latina.html"}, {"title": "Turbativa d'asta per i chioschi a Sabaudia: il processo si divide", "summary": "Rito ordinario per l'ex vicesindaco Giovanni Secci e il dipendente del Comune Giuseppe Caramanica. L'altra funzionaria coinvolta nell'inc...", "link": "https://www.latinatoday.it/cronaca/chioschi-sabaudia-giovanni-secci-processo-diviso.html"}, {"title": "Il Consiglio provinciale approva il dimensionamento scolastico: le novità principali", "summary": "Diversi istituti chiedono l'attivazione dell'istruzione per adulti, mentre si ribadisce la volontà di ricostituire le autonomie di Don Mi...", "link": "https://www.latinatoday.it/politica/dimensionamento-scolastico-approvazione-consiglio-provinciale.html"}, {"title": "Strada al buio da un mese e sommersa dall’erba alta, l’appello dei residenti: \"E' pericolosa\"", "summary": "Sono loro a chiedere un intervento del Comune di Latina e del Consorzio di Bonifica lungo strada del Falchetto, una trafficata via tra To...", "link": "https://www.latinatoday.it/attualita/strada-del-falchetto-buio-segnalazione-residenti-latina.html"}, {"title": "Parco Falcone e Borsellino: ora un esposto alla Procura europea", "summary": "L'opposizione chiede di valutare possibili irregolarità sull'utilizzo dei fondi Ue", "link": "https://www.latinatoday.it/politica/latina-opposizione-esposto-procura-europea-lavori-parco-falcone-borsellino.html"}, {"title": "Appia Day: le iniziative a Formia e al Parco dei Monti Aurunci", "summary": "Decima edizione per l’Appia Day, la manifestazione che celebra la Regina Viarum che collegava Rom[...]", "link": "https://www.latinatoday.it/eventi/appia-day-2026-formia-itri-fondi.html"}]}};
+    const archive = {"29/09/2026": {"Nazionale": [{"title": "Iñárritu presenta “Digger”: \"Vedere Tom Cruise sul set è come un miracolo”", "summary": "La nuova pellicola proiettata a Los Angeles sarà nei cinema dal 1° ottobre", "link": "https://www.ansa.it/sito/videogallery/spettacolo/2026/09/29/inarritu-presenta-digger-vedere-tom-cruise-sul-set-e-come-un-miracolo_5a1fd41b-19eb-44ff-b9d6-8d5642d50456.html", "domain": "ansa.it"}, {"title": "Caso Regeni, i tre 007 egiziani condannati pronti al ricorso: c’è il rischio prescrizione", "summary": "Le difese contestano la riforma Cartabia e valutano una nuova questione alla Consulta. Il processo di secondo grado potrebbe pe...", "link": "https://roma.repubblica.it/cronaca/2026/09/29/news/caso_regeni_tre_007_egiziani_condannati_ricorso_appello_prescrizione-425614754/", "domain": "roma.repubblica.it"}, {"title": "Lega, si accelera sul congresso: ipotesi 24 e 25 ottobre, si va verso Salvini candidato unico", "summary": "A riferire sull’eventuale data è Calderoli che sta lavorando alle regole. Per il momento non ci sarebbero sfidanti interni al s...", "link": "https://www.repubblica.it/politica/2026/09/29/news/lega_congresso_salvini_candidato_calderoli-425614645/", "domain": "repubblica.it"}, {"title": "Milano, non si accorge del treno in partenza e viene investito: 29enne morto sul colpo", "summary": "Per le forze dell'ordine si tratterebbe si una tragica fatalità: al polso la vittima portava un braccialetto ospedaliero", "link": "https://www.tgcom24.mediaset.it/cronaca/milano-treno-investito-morto_117112655-202602k.shtml", "domain": "tgcom24.mediaset.it"}, {"title": "Francesco Totti compie 50 anni e festeggia a Las Vegas con amici e familiari: ecco cosa ha fatto per il suo compleanno", "summary": "Domenica 27 settembre Francesco Totti ha compiuto 50 anni e per festeggiare questo importante traguardo ha compiuto insieme ad ...", "link": "https://www.ilfattoquotidiano.it/2026/09/29/francesco-totti-compie-50-anni-e-festeggia-a-las-vegas-con-amici-e-familiari-ecco-cosa-ha-fatto-per-il-suo-compleanno/8521722/", "domain": "ilfattoquotidiano.it"}, {"title": "Notizia 6 - Nazionale", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}], "Internazionale": [{"title": "I partiti di governo in Spagna hanno raggiunto un accordo sul decreto casa", "summary": "Fonti governo all'ANSA: 'Intesa in risposta alle richieste dei cittadini', misure in Cdm", "link": "https://www.ansa.it/sito/notizie/mondo/europa/2026/09/29/i-partiti-di-governo-in-spagna-hanno-raggiunto-un-accordo-sul-decreto-casa_38ff8114-ccef-46c8-ab10-ad059dec903d.html", "domain": "ansa.it"}, {"title": "OpenAI scraps rollout of new model over safety concerns", "summary": "The firm also issued an update on incidents in which its models accessed Australian government systems.", "link": "https://www.bbc.co.uk/news/articles/cm5y5nynl75ko?at_medium=RSS&at_campaign=rss", "domain": "bbc.co.uk"}, {"title": "Bomb by Bomb, the Slow Death of My Hometown in Ukraine", "summary": "It was possible, for a time, to think that Kramatorsk, where I was born and raised, would survive the war mostly unscathed. Not...", "link": "https://www.nytimes.com/2026/09/29/world/europe/ukraine-kramatorsk.html", "domain": "nytimes.com"}, {"title": "Polo makes landfall in Mexico as Category 3 hurricane, cutting power and causing floods", "summary": "This year's Pacific hurricane season is shaping up as more severe than usual, as a Super El Niño, an extreme version of a recur...", "link": "https://www.euronews.com/2026/09/29/mexico-braces-for-hurricane-polo-residents-evacuated-in-baja-california-sur", "domain": "euronews.com"}, {"title": "La squalo mania di Busan, in 600mila per vedere Bukang-i: esemplare bloccato nel canale da 12 giorni", "summary": "L’animale è entrato per errore in un canale ed è diventato una star, fino a essere nominato ambasciatore onorario della città. ...", "link": "https://www.repubblica.it/esteri/2026/09/29/news/squalo_bloccato_corea_del_sud_busan_bukangi_canale_12_giorni-425614739/?rss", "domain": "repubblica.it"}, {"title": "Dopo l’Ucraina la Russia si sentirà autorizzata a prendere di mira altri Paesi?", "summary": "I siti filo-governativi abbondano in questi giorni di presunte indiscrezioni, ovvero l’intenzione di Putin di proporre a Trump ...", "link": "https://www.corriere.it/esteri/25_marzo_06/ucraina-russia-altri-paesi-11092874-f9d1-11ef-a746-f12114cd361b.shtml", "domain": "corriere.it"}], "Tecnologia": [{"title": "Le migliori tende da campeggio tra modelli ultraleggeri, familiari e gonfiabili", "summary": "Dalle tende ultraleggere da trekking ai modelli familiari con vere e proprie stanze, passando per soluzioni gonfiabili e a mont...", "link": "https://www.wired.it/gallery/migliori-tende-campeggio/", "domain": "wired.it"}, {"title": "I problemi di privacy nella vostra macchina sono più seri di quello che pensate", "summary": "Tutte le 21 auto recenti analizzate da un gruppo di ricercatori della Northeastern University insieme a Consumer Reports trasme...", "link": "https://www.tomshw.it/automotive/i-problemi-di-privacy-nella-vostra-macchina-sono-piu-seri-di-quello-che-pensate", "domain": "tomshw.it"}, {"title": "Bose rispolvera gli auricolari con filo: USB-C, ANC e niente batteria", "summary": "Bose torna agli auricolari con filo dopo oltre dieci anni: i nuovi Noise Cancelling Wired Earbuds usano USB-C, ANC alimentato d...", "link": "https://www.macitynet.it/bose-rispolvera-gli-auricolari-con-filo-usb-c-anc-e-niente-batteria/", "domain": "macitynet.it"}, {"title": "Apple risarcirà proprietari di MacBook per le tastiere difettose", "summary": "Giudice Usa ha dato via libera all'intesa da 50 milioni di dollari", "link": "https://www.ansa.it/sito/notizie/tecnologia/hitech/2023/05/30/apple-risarcira-proprietari-di-macbook-per-le-tastiere-difettose_ce9214c7-b68d-4d8e-ad5f-7bd5bd04ecbe.html", "domain": "ansa.it"}, {"title": "Opera offre 3 GB gratuiti con la eSIM integrata", "summary": "Opera offre 3 GB di dati gratuiti per 3 giorni tramite una eSIM integrata nel browser per Android (può essere utilizzata entro ...", "link": "https://www.punto-informatico.it/opera-offre-3-gb-gratuiti-esim-integrata/", "domain": "punto-informatico.it"}, {"title": "Opera sfida le app eSIM: vende il traffico direttamente da browser", "summary": "Opera punta a semplificare la connessione internet all'estero con una eSIM integrata nel browser Android, utilizzabile anche da...", "link": "https://www.hdblog.it/mobile/articoli/n671993/opera-esim-viaggi-da-browser/", "domain": "hdblog.it"}], "Soldi": [{"title": "Made in Italy, al Mimit arriva la mostra “La chimica del design”", "summary": "Dal 3 al 20 novembre Palazzo Piacentini a Roma ospiterà la seconda tappa dell’esposizione organizzata da Federchimica e Adi, De...", "link": "https://www.ilsole24ore.com/art/made-italy-mimit-arriva-mostra-la-chimica-design-AJVp8kSB", "domain": "ilsole24ore.com"}, {"title": "Borsa: l'Europa positiva attende Wall Street, Milano +0,8%", "summary": "Vola Technoprobe, in luce le banche. Lo spread Btp e Bund a 95 punti", "link": "https://www.ansa.it/sito/notizie/economia/2026/09/29/borsa-leuropa-positiva-attende-wall-street-milano-08_8a48513c-000d-416c-b847-9652d89e04fc.html", "domain": "ansa.it"}, {"title": "Congedi parentali, un mese in più indennizzato all’80%: la novità 2024 (e chi ne ha diritto)", "summary": "La misura è pensata per aiutare le mamme e i papà lavoratori posto che la natalità in Italia è in calo da anni: nel 2023 si con...", "link": "https://www.corriere.it/economia/consumi/24_gennaio_30/congedi-parentali-mese-piu-indennizzato-all-80percento-novita-2024-chi-ne-ha-diritto-6c133bc8-beaf-11ee-8159-e88a7ef5abf7.shtml", "domain": "corriere.it"}, {"title": "La filiera estesa della pasta genera in Italia 14,3 miliardi di valore aggiunto", "summary": "La sola filiera della pasta vale 13,5 miliardi. Sommando i valori si arriva a 24,6 miliardi di fatturato, 143mila imprese e 78m...", "link": "https://www.repubblica.it/economia/rapporti/osserva-italia/mercati/2026/09/29/news/la_filiera_estesa_della_pasta_genera_in_italia_143_miliardi_di_valore_aggiunto-425614669/?rss", "domain": "repubblica.it"}, {"title": "Nvidia accelera sul buyback: autorizzati altri 150 miliardi di dollari", "summary": "Nvidia rafforza in modo significativo il piano di riacquisto di azioni proprie", "link": "https://www.wallstreetitalia.com/news/nvidia-accelera-sul-buyback-autorizzati-altri-150-miliardi-di-dollari/", "domain": "wallstreetitalia.com"}, {"title": "Notizia 6 - Soldi", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}], "Diplomazia": [{"title": "Libano e Gaza, due guerre diverse per Israele", "summary": "Se il cessate il fuoco sarà confermato anche nei giorni successivi la sua entrata in vigore, quella che appare chiara è la scon...", "link": "https://www.ispionline.it/it/libano-e-gaza-due-guerre-diverse-per-israele", "domain": "ispionline.it"}, {"title": "Il post-crisi di Ceuta nel SOTEU 2026", "summary": "Il 16 settembre, davanti al Parlamento riunito, la presidente della Commissione ha sottolineato più volte la necessità per l’Eu...", "link": "https://geopolitica.info/post-crisi-ceuta-soteu/", "domain": "geopolitica.info"}, {"title": "Schlein, gravi le parole di Tajani, governo faccia rispettare la sentenza Regeni", "summary": "\"Ha perso un'altra occasione per tacere ed evitare imbarazzo al Paese\"", "link": "https://www.ansa.it/sito/notizie/politica/2026/09/29/schlein-gravi-le-parole-di-tajani-governo-faccia-rispettare-la-sentenza-regeni_886da6c7-8031-42df-9b21-c25f4e69a28f.html", "domain": "ansa.it"}, {"title": "Notizia 4 - Diplomazia", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}, {"title": "Notizia 5 - Diplomazia", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}, {"title": "Notizia 6 - Diplomazia", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}], "Local": [{"title": "Parco Falcone Borsellino Tutte le contestazioni nell'esposto alla Procura Ue", "summary": "La recinzione differente, i bulloni, i costi della pavimentazione, i cigli in travertino, e altro ancora. Sono questi, alcuni d...", "link": "https://www.ilmessaggero.it/latina/parco_falcone_borsellino_esposto_procura_ue_lavori_costipnrr-9791888.html", "domain": "ilmessaggero.it"}, {"title": "Aprilia, giovane automobilista fugge all’alt dei carabinieri: aveva bulbi di papavero, arrestato", "summary": "Ad Aprilia continua l’attività di controllo del territorio da parte dei carabinieri del reparto territoriale, al fine di preven...", "link": "https://www.h24notizie.com/2026/09/29/aprilia-giovane-automobilista-fugge-allalt-dei-carabinieri-aveva-bulbi-di-papavero-arrestato/", "domain": "h24notizie.com"}, {"title": "Notizia 3 - Local", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}, {"title": "Notizia 4 - Local", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}, {"title": "Notizia 5 - Local", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}, {"title": "Notizia 6 - Local", "summary": "Aggiornamento in attesa di sincronizzazione.", "link": "https://www.ansa.it", "domain": "ansa.it"}]}};
     let currentDate = "";
     let currentTopic = "Nazionale";
 
@@ -182,7 +194,6 @@
         const dates = Object.keys(archive).reverse();
         if (dates.length === 0) return;
 
-        // Popola il menu a tendina delle date
         dateSelect.innerHTML = "";
         dates.forEach(date => {
             const opt = document.createElement('option');
@@ -191,7 +202,7 @@
             dateSelect.appendChild(opt);
         });
 
-        currentDate = dates[0]; // La data più recente
+        currentDate = dates[0];
         renderTopics();
         renderNews();
     }
@@ -220,10 +231,14 @@
         articles.forEach((item, index) => {
             const card = document.createElement('article');
             card.className = "news-item";
+            
+            // Hyperlink diretto visibile
+            const displayUrl = item.link;
+
             card.innerHTML = `
-                <div class="news-header">${index + 1}. ${item.title}</div>
+                <div class="news-title">${index + 1}. ${item.title}</div>
                 <div class="news-summary">${item.summary}</div>
-                <a href="${item.link}" class="news-link" target="_blank" rel="noopener">Leggi articolo originale →</a>
+                <a href="${item.link}" class="news-link" target="_blank" rel="noopener">${displayUrl}</a>
             `;
             newsContainer.appendChild(card);
         });
