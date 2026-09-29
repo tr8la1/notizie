@@ -1,0 +1,33 @@
+name: Aggiornamento Giornaliero News Trottolose
+
+on:
+  schedule:
+    # Esegue ogni giorno alle 05:00 UTC (ore 07:00 italiane)
+    - cron: '0 5 * * *'
+  workflow_dispatch: # Ti permette di avviarlo anche manualmente quando vuoi
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repository
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Esegui lo script per recuperare le news
+        run: python fetch_news.py
+
+      - name: Salva e pubblica i file aggiornati
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add archive.json notizie.html
+          git commit -m "Automated update: News trottolose" || exit 0
+          git push
