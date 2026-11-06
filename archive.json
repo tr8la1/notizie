@@ -8738,5 +8738,235 @@
         "domain": "ansa.it"
       }
     ]
+  },
+  "06/11/2026": {
+    "Nazionale": [
+      {
+        "title": "Il gatto miagola insistentemente e 'fiuta' la fuga di monossido",
+        "summary": "L'episodio nel Trevigiano. Intossicata una 29enne, portato in ospedale anche il marito",
+        "link": "https://www.ansa.it/veneto/notizie/2026/11/05/il-gatto-miagola-insistentemente-scoperta-fuga-di-monossido-in-casa_2bcaaa55-74f1-4989-bdd0-ba6cfbcca23a.html",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Ecco perché Bob Dylan ha ragione",
+        "summary": "I cellulari sequestrati, il cappuccio, la scaletta, le critiche. Ma il messaggio del concerto di Roma è una lezione per tutti",
+        "link": "https://www.repubblica.it/cultura/2026/11/06/news/bob_dylan_concerto_roma_cappuccio_cellulari_commento_dario_olivero-425703773/",
+        "domain": "repubblica.it"
+      },
+      {
+        "title": "Allarme bomba sui voli, commissario capo: \"Non sottovalutiamo mai queste notizie\"",
+        "summary": "A \"Mattino cinque\" le parole di Francesco La Greca: \"Controllo in partenza presunzione positiva rispetto sicurezza del volo\"",
+        "link": "https://www.tgcom24.mediaset.it/cronaca/allarme-bomba-voli-commissario-capo-fiumicino_118665810-202602k.shtml",
+        "domain": "tgcom24.mediaset.it"
+      },
+      {
+        "title": "Gratteri, Veltroni, Berlinguer e Jebreal ospiti di Sommi ad Accordi&Disaccordi sabato 7 novembre. Con Travaglio e Scanzi",
+        "summary": "Il racconto dell’attualità è protagonista il sabato in prima serata sul Nove con il talk di confronto, discussione e approfondi...",
+        "link": "https://www.ilfattoquotidiano.it/2026/11/06/gratteri-veltroni-berlinguer-e-jebreal-ospiti-di-sommi-ad-accordidisaccordi-sabato-7-novembre-con-travaglio-e-scanzi/8561310/",
+        "domain": "ilfattoquotidiano.it"
+      },
+      {
+        "title": "Notizia 5 - Nazionale",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Notizia 6 - Nazionale",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      }
+    ],
+    "Internazionale": [
+      {
+        "title": "Media Houthi, 'oltre 30 tra morti e feriti in raid contro un mercato a Taiz'",
+        "summary": "Bombardamenti anche su Sana'a e nella provincia di Saada",
+        "link": "https://www.ansa.it/sito/notizie/mondo/mediooriente/2026/11/06/media-houthi-oltre-30-tra-morti-e-feriti-in-raid-contro-un-mercato-a-taiz_4a3fb6f4-e222-4667-aa21-804d62b0643b.html",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "White House denies Hegseth and Rubio to leave jobs after Republican election losses",
+        "summary": "US media reports there are calls to replace Pete Hegseth, who also faces a possible impeachment vote, while Marco Rubio is rumo...",
+        "link": "https://www.bbc.co.uk/news/articles/cqg7xxg4jdv5o?at_medium=RSS&at_campaign=rss",
+        "domain": "bbc.co.uk"
+      },
+      {
+        "title": "Guarded Optimism, and Some Jokes, in Ukraine Over Trump’s Midterm Wipeout",
+        "summary": "Victory for Democrats could alter the course of peace negotiations and a war nearing its fifth year.",
+        "link": "https://www.nytimes.com/2026/11/06/world/europe/russia-ukraine-trump-midterms.html",
+        "domain": "nytimes.com"
+      },
+      {
+        "title": "Pope Leo XIV departs for Uruguay as he begins tour of South America",
+        "summary": "Leo is scheduled to head on to Argentina, where he is due to visit Buenos Aires, Córdoba and Luján. In Peru, the pontiff is als...",
+        "link": "https://www.euronews.com/2026/11/06/pope-leo-xiv-departs-for-uruguay-as-he-begins-tour-of-south-america",
+        "domain": "euronews.com"
+      },
+      {
+        "title": "Ungheria, svelata una deposizione dell’ex premier Németh: “Orbán era una spia comunista”",
+        "summary": "Secondo il sito d’inchiesta  VSquare,  nel 1990, alla vigilia delle prime elezioni libere, ricevette tre documenti dal ministro...",
+        "link": "https://www.repubblica.it/esteri/2026/11/06/news/ungheria_deposizione_ex_premier_nemeth_orban_spia_comunista-425704039/?rss",
+        "domain": "repubblica.it"
+      },
+      {
+        "title": "Dopo l’Ucraina la Russia si sentirà autorizzata a prendere di mira altri Paesi?",
+        "summary": "I siti filo-governativi abbondano in questi giorni di presunte indiscrezioni, ovvero l’intenzione di Putin di proporre a Trump ...",
+        "link": "https://www.corriere.it/esteri/25_marzo_06/ucraina-russia-altri-paesi-11092874-f9d1-11ef-a746-f12114cd361b.shtml",
+        "domain": "corriere.it"
+      }
+    ],
+    "Tecnologia": [
+      {
+        "title": "Le migliori tende da campeggio tra modelli ultraleggeri, familiari e gonfiabili",
+        "summary": "Dalle tende ultraleggere da trekking ai modelli familiari con vere e proprie stanze, passando per soluzioni gonfiabili e a mont...",
+        "link": "https://www.wired.it/gallery/migliori-tende-campeggio/",
+        "domain": "wired.it"
+      },
+      {
+        "title": "OpenVPN rafforza le difese: ecco cosa cambia con la nuova versione",
+        "summary": "È disponibile OpenVPN 2.7.9, aggiornamento del software VPN open source che corregge due vulnerabilità nel servizio per Windows...",
+        "link": "https://www.tomshw.it/hardware/openvpn-corregge-due-falle-perche-aggiornare-su-windows",
+        "domain": "tomshw.it"
+      },
+      {
+        "title": "A ottobre le plug-in doppiano le elettriche, una nuova auto su sei è prodotta in Cina",
+        "summary": "Il mercato cresce del 4,8%. PHEV al 12,7%, BEV al 6,1%, ibride al 49% e vetture prodotte in Cina al 17,6%. - su macitynet.it  A...",
+        "link": "https://www.macitynet.it/mercato-auto-italia-ottobre-2026/",
+        "domain": "macitynet.it"
+      },
+      {
+        "title": "Apple risarcirà proprietari di MacBook per le tastiere difettose",
+        "summary": "Giudice Usa ha dato via libera all'intesa da 50 milioni di dollari",
+        "link": "https://www.ansa.it/sito/notizie/tecnologia/hitech/2023/05/30/apple-risarcira-proprietari-di-macbook-per-le-tastiere-difettose_ce9214c7-b68d-4d8e-ad5f-7bd5bd04ecbe.html",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "GTA 6 non è gratis e per smartphone, truffe in aumento",
+        "summary": "I cybercriminali sfruttano l'imminente lancio di GTA 6 per rubare dati e soldi agli utenti, promettendo versioni per PC, Androi...",
+        "link": "https://www.punto-informatico.it/gta-6-non-gratis-smartphone-truffe-aumento/",
+        "domain": "punto-informatico.it"
+      },
+      {
+        "title": "L'AI trova quasi mille modi per violare Linux spendendo un quindicesimo",
+        "summary": "Un sistema sperimentale ha individuato migliaia di potenziali vulnerabilità nel kernel Linux e generato 948 exploit funzionanti...",
+        "link": "https://www.hdblog.it/linux/articoli/n676201/vulnerabilita-linux-scoperte-con-ai-openai/",
+        "domain": "hdblog.it"
+      }
+    ],
+    "Soldi": [
+      {
+        "title": "Metinvest si sfila dal progetto per Piombino",
+        "summary": "Si complica sempre più la sfida del rilancio dell’industria italiana dell’acciaio. Dopo Taranto, anche Piombino finisce nella p...",
+        "link": "https://www.ilsole24ore.com/art/metinvest-si-sfila-progetto-piombino-AJ6dyR6B",
+        "domain": "ilsole24ore.com"
+      },
+      {
+        "title": "Meloni a Eicma, 'questo settore è un pezzo del racconto del made in Italy'",
+        "summary": "'Ed è un mondo che ci regala grandi soddisfazioni'",
+        "link": "https://www.ansa.it/sito/notizie/economia/2026/11/06/meloni-a-eicma-questo-settore-e-un-pezzo-del-racconto-del-made-in-italy_9cab6697-647c-4986-a5df-65e2ecf6c842.html",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Congedi parentali, un mese in più indennizzato all’80%: la novità 2024 (e chi ne ha diritto)",
+        "summary": "La misura è pensata per aiutare le mamme e i papà lavoratori posto che la natalità in Italia è in calo da anni: nel 2023 si con...",
+        "link": "https://www.corriere.it/economia/consumi/24_gennaio_30/congedi-parentali-mese-piu-indennizzato-all-80percento-novita-2024-chi-ne-ha-diritto-6c133bc8-beaf-11ee-8159-e88a7ef5abf7.shtml",
+        "domain": "corriere.it"
+      },
+      {
+        "title": "Il nuovo Tgv a 2 piani in partenza: lunedì in servizio in Francia, dal 2028 in Italia. Ecco come va",
+        "summary": "Siamo saliti sul treno veloce delle Ferrovie francesi – di quinta generazione – per il viaggio inaugurale da Parigi a Marsiglia...",
+        "link": "https://www.repubblica.it/economia/2026/11/06/news/nuovo_tgv_due_piani_italia_2028-425703983/?rss",
+        "domain": "repubblica.it"
+      },
+      {
+        "title": "Da Zurich Bank una nuova polizza multiramo per la clientela wealth",
+        "summary": "Zurich Bank ha ampliato la propria offerta con Zurich EliteInvest, polizza multiramo creata da Zurich Investments Life, e distr...",
+        "link": "https://www.wallstreetitalia.com/da-zurich-bank-una-nuova-polizza-multiramo-per-la-clientela-wealth/",
+        "domain": "wallstreetitalia.com"
+      },
+      {
+        "title": "Notizia 6 - Soldi",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      }
+    ],
+    "Diplomazia": [
+      {
+        "title": "Libano e Gaza, due guerre diverse per Israele",
+        "summary": "Se il cessate il fuoco sarà confermato anche nei giorni successivi la sua entrata in vigore, quella che appare chiara è la scon...",
+        "link": "https://www.ispionline.it/it/libano-e-gaza-due-guerre-diverse-per-israele",
+        "domain": "ispionline.it"
+      },
+      {
+        "title": "L’impatto della blue wave sulla politica estera americana",
+        "summary": "La vittoria democratica in entrambe le Camere apre una nuova fase nei rapporti tra Congresso e Casa Bianca. Dall’Iran all’Ucrai...",
+        "link": "https://geopolitica.info/impatto-blue-wave-politica-estera-usa%e2%81%a0/",
+        "domain": "geopolitica.info"
+      },
+      {
+        "title": "Meloni a Eicma, 'questo settore è un pezzo del racconto del made in Italy'",
+        "summary": "'Ed è un mondo che ci regala grandi soddisfazioni'",
+        "link": "https://www.ansa.it/sito/notizie/politica/2026/11/06/meloni-a-eicma-questo-settore-e-un-pezzo-del-racconto-del-made-in-italy_a3ce9c04-f5b6-4e10-89c8-3d871fc1aa72.html",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Notizia 4 - Diplomazia",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Notizia 5 - Diplomazia",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Notizia 6 - Diplomazia",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      }
+    ],
+    "Local": [
+      {
+        "title": "La protesta degli studenti si allarga: tentata occupazione al Caboto. La dirigente apre al dialogo",
+        "summary": "Anche i ragazzi dell’Istituto Nautico si mobilitano. Rientra il tentativo di occupazione dopo il confronto con la dirigente sco...",
+        "link": "https://www.latinatoday.it/attualita/protesta-studenti-istituto-caboto-tentativo-occupazione.html",
+        "domain": "latinatoday.it"
+      },
+      {
+        "title": "Plastica, stop conferimenti: Comuni e ditte in emergenza",
+        "summary": "La plastica resta nei cassonetti, anche a Latina. Abc, l?azienda speciale che gestisce il servizio di igiene urbana nel capoluo...",
+        "link": "https://www.ilmessaggero.it/latina/latina_stop_raccolta_plastica_vetro_metalli-9871960.html",
+        "domain": "ilmessaggero.it"
+      },
+      {
+        "title": "Latina, atti persecutori: 40enne ai domiciliari con braccialetto elettronico",
+        "summary": "Arresti domiciliari per un uomo di 40 anni, di origini moldave, indagato per atti persecutori nei confronti di una donna. Il pr...",
+        "link": "https://www.h24notizie.com/2026/11/06/latina-atti-persecutori-40enne-ai-domiciliari-con-braccialetto-elettronico/",
+        "domain": "h24notizie.com"
+      },
+      {
+        "title": "Cani sequestrati con “inganno”: resta ai domiciliari la guardia zoofila",
+        "summary": "Resta agli arresti domiciliari la guardia zoofila di 69 anni, finito al centro di un&#8217;inchiesta della procura di Latina co...",
+        "link": "https://www.latinacorriere.it/cani-sequestrati-con-inganno-resta-ai-domiciliari-la-guardia-zoofila/?utm_source=rss&utm_medium=rss&utm_campaign=cani-sequestrati-con-inganno-resta-ai-domiciliari-la-guardia-zoofila",
+        "domain": "latinacorriere.it"
+      },
+      {
+        "title": "Notizia 5 - Local",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      },
+      {
+        "title": "Notizia 6 - Local",
+        "summary": "Aggiornamento in attesa di sincronizzazione.",
+        "link": "https://www.ansa.it",
+        "domain": "ansa.it"
+      }
+    ]
   }
 }
